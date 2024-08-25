@@ -1,7 +1,7 @@
 #ifndef FRUSTUM_H
 #define FRUSTUM_H
 #include <cmath>
-#include "MyMath.hpp"
+#include "scanline.hpp"
 
 class Frustum
 {

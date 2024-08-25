@@ -37,10 +37,10 @@ public:
 int Render::get_code(Point2D &p)
 {
     int code = 0b0000;
-    int top = this->y + this->height;
-    int bottom = this->y;
-    int left = this->x;
-    int right = this->x + this->width;
+    float top = this->y + this->height;
+    float bottom = this->y;
+    float left = this->x;
+    float right = this->x + this->width;
     if (p.get_x() < left)
     {
         code = code | POINTPOS::LEFT;
@@ -149,13 +149,16 @@ void Render::draw_triangle(vector<Point3DN> vertices, Mat4 &model, color_t color
         point3dn.set_withIdx(0, x);
         point3dn.set_withIdx(1, y);
     }
+    vector<Point2D> v2D;
     for (int i = 0; i < 3; i++)
     {
         // vertices[i].printxyzw();
         // vertices[(i + 1) % 3].printxyzw();
-        Point2D a = Point2D((int)vertices[i].get_x(), (int)vertices[i].get_y());
-        Point2D b = Point2D((int)vertices[(i + 1) % 3].get_x(), (int)vertices[(i + 1) % 3].get_y());
+        Point2D a = Point2D(vertices[i].get_x(), vertices[i].get_y());
+        Point2D b = Point2D(vertices[(i + 1) % 3].get_x(), vertices[(i + 1) % 3].get_y());
         draw_line(a, b, color);
+        v2D.push_back(a);
     }
+    Trapezoid::from_Triangle(v2D);
 }
 #endif

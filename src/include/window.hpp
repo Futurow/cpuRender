@@ -57,12 +57,11 @@ void Window::play()
         Mat4 srt = Mat4::dot(translation2, rotation);
         // srt = Mat4::dot(translation2, srt);
         this->render->draw_triangle(t, srt, GREEN);
-        this->render->draw_triangle(t0, srt, GREEN);
+        this->render->draw_triangle(t0, srt, RED);
+        getch();
         Sleep(100);
-        // getch();
         this->render->clear(BLACK);
         angle += 2.0;
-        // cout << angle << endl;
     }
 }
 void Window::close()

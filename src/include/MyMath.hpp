@@ -18,8 +18,9 @@ public:
     int get_y() { return this->y; };
     void set_x(int x) { this->x = x; };
     void set_y(int y) { this->y = y; };
+    void printPoint2D() { cout << "Point2D:" << this->x << "," << this->y << endl; }
 };
-Point2D::Point2D(int x, int y)
+inline Point2D::Point2D(int x, int y)
 {
     this->x = x;
     this->y = y;
