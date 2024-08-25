@@ -40,6 +40,7 @@ private:
 public:
     Camera(float nearPlane, float aspect, float fovy)
         : frustum(nearPlane, aspect, fovy) {}
+    Frustum &get_frustum() { return this->frustum; };
 };
 
 #endif

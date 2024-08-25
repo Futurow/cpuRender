@@ -65,7 +65,7 @@ Render::Render(int x, int y, int width, int height)
     this->y = y;
     this->width = width;
     this->height = height;
-    this->camera = new Camera(1.0, width / height, angleToRadian(45.0f));
+    this->camera = new Camera(1.0, width / height, angleToRadian(30.0f));
 }
 
 Render::~Render()
@@ -136,14 +136,16 @@ void Render::draw_line(Point2D &a, Point2D &b, color_t color)
 }
 void Render::draw_triangle(vector<Point3DN> vertices, Mat4 &model, color_t color)
 {
-    model.Scaled(1, 1, 3);
+    Mat4 &projection = this->camera->get_frustum().get_mat();
     for (auto &point3dn : vertices)
     {
         // point3dn.printxyzw();
         model.dotPoint3DN(point3dn);
+        projection.dotPoint3DN(point3dn);
+        point3dn.divByW();
         // point3dn.printxyzw();
-        int x = (point3dn.get_x() + 1.0) * 0.5 * this->width + this->x;
-        int y = this->height - (point3dn.get_y() + 1.0) * 0.5 * this->height + this->y;
+        float x = (point3dn.get_x() + 1.0) * 0.5 * this->width + this->x - 1.0;
+        float y = this->height - (point3dn.get_y() + 1.0) * 0.5 * this->height + this->y + 1.0;
         point3dn.set_withIdx(0, x);
         point3dn.set_withIdx(1, y);
     }
