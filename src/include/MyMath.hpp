@@ -2,6 +2,10 @@
 #define MATH_H
 #include <iostream>
 using namespace std;
+inline float angleToRadian(float angle)
+{
+    return angle * M_PI / 180.0f;
+}
 class Point2D
 {
 private:
@@ -10,7 +14,6 @@ private:
 
 public:
     Point2D(int x, int y);
-    Point2D();
     int get_x() { return this->x; };
     int get_y() { return this->y; };
     void set_x(int x) { this->x = x; };
@@ -67,11 +70,24 @@ private:
     float matrix[4][4] = {0};
 
 public:
+    void InitMat4(const float (&array)[4][4]);
     void Identity();
     void PrintMat();
+    void setVal(int i, int j, float val);
     void Scaled(float Sx, float Sy, float Sz);
     void dotPoint3DN(Point3DN &point);
+    Mat4 dot(const Mat4 &a, const Mat4 &b);
 };
+void Mat4::InitMat4(const float (&array)[4][4])
+{
+    for (int i = 0; i < 4; ++i)
+    {
+        for (int j = 0; j < 4; ++j)
+        {
+            this->matrix[i][j] = array[i][j];
+        }
+    }
+}
 
 inline void Mat4::Identity()
 {
@@ -95,6 +111,10 @@ void Mat4::PrintMat()
         cout << endl;
     }
 }
+inline void Mat4::setVal(int i, int j, float val)
+{
+    this->matrix[i][j] = val;
+}
 void Mat4::dotPoint3DN(Point3DN &point)
 {
     float t[4] = {0};
@@ -109,5 +129,20 @@ void Mat4::dotPoint3DN(Point3DN &point)
     {
         point.set_withIdx(i, t[i]);
     }
+}
+Mat4 Mat4::dot(const Mat4 &a, const Mat4 &b)
+{
+    Mat4 result;
+    for (int i = 0; i < 4; ++i)
+    {
+        for (int j = 0; j < 4; ++j)
+        {
+            for (int k = 0; k < 4; ++k)
+            {
+                result.matrix[i][j] += a.matrix[i][k] * b.matrix[k][j];
+            }
+        }
+    }
+    return result;
 }
 #endif

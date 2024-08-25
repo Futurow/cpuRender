@@ -1,7 +1,7 @@
 #ifndef RENDER_H
 #define RENDER_H
 #include "graphics.h"
-#include "math.hpp"
+#include "Frustum.hpp"
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -20,6 +20,7 @@ private:
     int y;
     int width;
     int height;
+    Camera *camera;
 
 public:
     Render(int x, int y, int width, int height);
@@ -64,6 +65,7 @@ Render::Render(int x, int y, int width, int height)
     this->y = y;
     this->width = width;
     this->height = height;
+    this->camera = new Camera(1.0, width / height, angleToRadian(45.0f));
 }
 
 Render::~Render()
