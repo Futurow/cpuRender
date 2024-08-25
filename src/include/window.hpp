@@ -37,8 +37,11 @@ void Window::play()
     Point3DN a = Point3DN(-1.0, 1.0, -2.0, 1.0);
     Point3DN b = Point3DN(1.0, 1.0, -2.0, 1.0);
     Point3DN c = Point3DN(0.0, -1.0, -2.0, 1.0);
-    Point3DN a0 = Point3DN(0.0, 0.0, 0.0, 1.0);
-    Point3DN b0 = Point3DN(0.0, -1.0, -2.0, 1.0);
+    // Point3DN a0 = Point3DN(0.0, 0.0, 0.0, 1.0);
+    // Point3DN b0 = Point3DN(0.0, -1.0, -2.0, 1.0);
+    // Point3DN c0 = Point3DN(0.0, 1.0, -2.0, 1.0);
+    Point3DN a0 = Point3DN(-1.0, -1.0, -2.0, 1.0);
+    Point3DN b0 = Point3DN(1.0, -1.0, -2.0, 1.0);
     Point3DN c0 = Point3DN(0.0, 1.0, -2.0, 1.0);
     vector<Point3DN> t, t0;
     t.push_back(a);

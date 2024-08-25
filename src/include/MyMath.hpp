@@ -13,6 +13,7 @@ private:
     int y;
 
 public:
+    Point2D() {};
     Point2D(int x, int y);
     int get_x() { return this->x; };
     int get_y() { return this->y; };
