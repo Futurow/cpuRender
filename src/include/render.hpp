@@ -152,13 +152,20 @@ void Render::draw_triangle(vector<Point3DN> vertices, Mat4 &model, color_t color
     vector<Point2D> v2D;
     for (int i = 0; i < 3; i++)
     {
-        // vertices[i].printxyzw();
-        // vertices[(i + 1) % 3].printxyzw();
         Point2D a = Point2D(vertices[i].get_x(), vertices[i].get_y());
-        Point2D b = Point2D(vertices[(i + 1) % 3].get_x(), vertices[(i + 1) % 3].get_y());
-        draw_line(a, b, color);
+        // Point2D b = Point2D(vertices[(i + 1) % 3].get_x(), vertices[(i + 1) % 3].get_y());
+        // draw_line(a, b, color);
         v2D.push_back(a);
     }
-    Trapezoid::from_Triangle(v2D);
+    vector<Trapezoid> vTrapezoid = Trapezoid::from_Triangle(v2D);
+    for (auto trapezoid : vTrapezoid)
+    {
+        for (int y = trapezoid.get_bottom(); y <= trapezoid.get_top(); y++)
+        {
+            Point2D a(-1, y), b(-1, y);
+            trapezoid.cal_point(a, b, y);
+            draw_line(a, b, color);
+        }
+    }
 }
 #endif

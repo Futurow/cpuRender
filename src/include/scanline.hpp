@@ -23,6 +23,8 @@ public:
         this->v2.printPoint2D();
         cout << "}" << endl;
     }
+    Point2D &get_v1() { return this->v1; };
+    Point2D &get_v2() { return this->v2; };
 };
 class Trapezoid
 {
@@ -32,12 +34,31 @@ private:
 
 public:
     Trapezoid() {};
+    int get_top() { return this->top; };
+    int get_bottom() { return this->bottom; };
     void set_top(int top) { this->top = top; };
     void set_bottom(int bottom) { this->bottom = bottom; };
     void set_left(Edge left) { this->left = left; };
     void set_right(Edge right) { this->right = right; };
+    void cal_point(Point2D &a, Point2D &b, int y);
     static vector<Trapezoid> from_Triangle(vector<Point2D> vertices);
 };
+void Trapezoid::cal_point(Point2D &a, Point2D &b, int y)
+{
+    int yc = this->left.get_v2().get_y();
+    int xa = this->left.get_v1().get_x();
+    int xc = this->left.get_v2().get_x();
+
+    int xd = this->right.get_v2().get_x();
+    int yd = this->right.get_v2().get_y();
+    int xb = this->right.get_v1().get_x();
+
+    int x1 = xc + float(y - yc) * (xa - xc) / (this->top - this->bottom);
+    int x2 = xd - float(y - yd) * (xd - xb) / (this->top - this->bottom);
+
+    a.set_x(x1);
+    b.set_x(x2);
+}
 vector<Trapezoid> Trapezoid::from_Triangle(vector<Point2D> vertices)
 {
     std::sort(vertices.begin(), vertices.end(), [](Point2D &a, Point2D &b)
