@@ -1,4 +1,5 @@
 #include "include/window.hpp"
+
 int main()
 {
     Window window = Window(640, 480);
